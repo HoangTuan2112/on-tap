@@ -77,12 +77,12 @@ export default function Todo() {
               <td>
                 {editId == todo.id && isEdit ? (
                   <Input
-                    value={text}
+                    value={editTitle}
                     placeholder={todo.tittle}
                     onChange={(e) => setEditTitle(e.target.value)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        if (text.trim() !== "") {
+                        if (editTitle.trim() !== "") {
                           dispatch(updateTodo({ ...todo, title: editTitle }));
                           setIsEdit(false);
                         }
