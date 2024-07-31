@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { Button, Container, Input, Table } from "reactstrap";
+import { Button, Col, Container, Input, Row, Table } from "reactstrap";
 import "./todo.css";
 import {
   addTodo,
   deleteTodo,
+  deleteTodoAll,
   filterTodo,
   toggleComplete,
+  toggleCompleteAll,
   updateTodo,
 } from "../../redux/todoReducer";
 
@@ -20,6 +22,7 @@ export default function Todo() {
   const [text, setText] = React.useState("");
   const [text1, setText1] = React.useState("");
   const [list, setList] = React.useState(todos);
+  const [text2, setText2] = React.useState("");
 
   const filter = (type) => {
     if (type == "completed") {
@@ -29,7 +32,21 @@ export default function Todo() {
     } else if (type == "all") {
       return list;
     }
+    else{
+     return list.filter((todo) => todo.title.includes(type));
+    }
   };
+  const toggleCompleteAll1 = () => {
+    const newlist = list.map((todo) => {
+      return { ...todo, completed: !todo.completed };
+    });
+    setList(newlist);
+  };
+  const deleteTodoAll1 = () => {
+    const newlist = list.filter((todo) => !todo.completed);
+    setList(newlist);
+  };
+
   const [dk, setDk] = React.useState("all");
   useEffect(() => {
     setList(todos);
@@ -50,16 +67,46 @@ export default function Todo() {
           }
         }}
       />
-      <div className="filter">
-        <Button color="primary" onClick={() => setDk("all")}>
-          All
-        </Button>
-        <Button color="primary" onClick={() => setDk("completed")}>
-          Completed
-        </Button>
-        <Button color="primary" onClick={() => setDk("uncompleted")}>
-          Uncompleted
-        </Button>
+      <div>
+        <Col className="col-sm-6 col-md-4 col-lg-12 filter">
+          <Button color="primary" onClick={() => setDk("all")}>
+            All
+          </Button>
+
+          <Button color="primary" onClick={() => setDk("completed")}>
+            Completed
+          </Button>
+          <Button color="primary" onClick={() => setDk("uncompleted")}>
+            Uncompleted
+          </Button>
+          <Button
+            color="primary"
+            onClick={() => {
+              toggleCompleteAll1();
+              dispatch(toggleCompleteAll());
+            }}
+          >
+            Toggle Completed All
+          </Button>
+
+          
+          <Button
+            color="primary"
+            onClick={() => {
+              deleteTodoAll1();
+              dispatch(deleteTodoAll());
+            }}
+          >
+            Delete Completed All
+          </Button>
+        </Col>
+        <Input placeholder="loc theo tittle" value={text2} onChange={(e)=>setText2(e.target.value)} onKeyDown={(e)=>{
+          if(e.key === "Enter"){
+            if(text2.trim() !== ""){
+              setDk(text2);
+            }
+          }
+        }}></Input>
       </div>
       <Table>
         <thead>

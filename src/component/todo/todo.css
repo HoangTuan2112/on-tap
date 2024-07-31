@@ -1,9 +1,12 @@
 .filter{
-    display: flex;
-    justify-content: space-between;
+    
     margin: 10px 0;
+    width: 100%;
  
 }
 .tittle.active{
     text-decoration: line-through;
+}
+button{
+    margin: 0 5px !important;
 }

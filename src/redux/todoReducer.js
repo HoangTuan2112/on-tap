@@ -45,8 +45,27 @@ const todoReducer = createSlice({
         return state.todos.filter((todo) => !todo.completed);
       }
     },
+    toggleCompleteAll: (state) => {
+      state.todos = state.todos.map((todo) => {
+        return { ...todo, completed: !todo.completed };
+      });
+      localStorage.setItem("todos", JSON.stringify(state.todos));
+    },
+    deleteTodoAll: (state) => {
+      state.todos = state.todos.filter((todo) => !todo.completed);
+      localStorage.setItem("todos", JSON.stringify(state.todos));
+    },
+   
   },
 });
-export const { addTodo, deleteTodo, updateTodo, toggleComplete, filterTodo } =
-  todoReducer.actions;
+export const {
+  addTodo,
+  deleteTodo,
+  updateTodo,
+  toggleComplete,
+  filterTodo,
+  toggleCompleteAll,
+  deleteTodoAll,
+  fiterByTittle
+} = todoReducer.actions;
 export default todoReducer.reducer;
