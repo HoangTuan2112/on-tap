@@ -17,8 +17,8 @@ export default function Todo() {
   const [isEdit, setIsEdit] = React.useState(false);
   const [editId, setEditId] = React.useState(null);
   const [editTitle, setEditTitle] = React.useState(null);
-  const [text, setText] = React.useState(null);
-  const [text1, setText1] = React.useState(null);
+  const [text, setText] = React.useState("");
+  const [text1, setText1] = React.useState("");
   const [list, setList] = React.useState(todos);
 
   const filter = (type) => {
@@ -39,11 +39,14 @@ export default function Todo() {
       <h1>Todo List</h1>
       <Input
         placeholder="Add tittle"
+        value={text1}
         onChange={(e) => setText1(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            dispatch(addTodo(text1));
-            setText1("");
+            if (text1.trim() !== "") {
+              dispatch(addTodo(text1));
+              setText1("");
+            }
           }
         }}
       />
@@ -79,8 +82,10 @@ export default function Todo() {
                     onChange={(e) => setEditTitle(e.target.value)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        dispatch(updateTodo({ ...todo, title: editTitle }));
-                        setIsEdit(false);
+                        if (text.trim() !== "") {
+                          dispatch(updateTodo({ ...todo, title: editTitle }));
+                          setIsEdit(false);
+                        }
                       }
                     }}
                   ></Input>
@@ -100,9 +105,13 @@ export default function Todo() {
                 )}
               </td>
               <td>
-                <Input type="checkbox" checked={todo.completed}  onClick={() => {
-                      dispatch(toggleComplete(todo.id));
-                    }}  />
+                <Input
+                  type="checkbox"
+                  checked={todo.completed}
+                  onClick={() => {
+                    dispatch(toggleComplete(todo.id));
+                  }}
+                />
               </td>
               <td>
                 <Button
