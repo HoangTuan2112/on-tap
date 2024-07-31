@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/on-tap/static/css/main.8ef5dc9c.css",
+    "main.js": "/on-tap/static/js/main.7f0c50f7.js",
+    "index.html": "/on-tap/index.html",
+    "main.8ef5dc9c.css.map": "/on-tap/static/css/main.8ef5dc9c.css.map",
+    "main.7f0c50f7.js.map": "/on-tap/static/js/main.7f0c50f7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8ef5dc9c.css",
+    "static/js/main.7f0c50f7.js"
+  ]
+}
